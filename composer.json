@@ -1,0 +1,64 @@
+{
+	"name": "jambagecom/base-word",
+	"type": "typo3-cms-extension",
+	"description": "This provides the PHPWord library from phpOffice.",
+	"keywords": [
+		"TYPO3",
+		"extension",
+		"word",
+		"phpOffice"
+	],
+	"support": {
+		"issues": "https://github.com/franzholz/base_word/issues"
+	},
+	"homepage": "https://jambage.com",
+    "authors": [
+        {
+            "name": "Mark Baker"
+        },
+        {
+            "name": "Gabriel Bull",
+            "email": "me@gabrielbull.com",
+            "homepage": "http://gabrielbull.com/"
+        },
+        {
+            "name": "Franck Lefevre",
+            "homepage": "https://rootslabs.net/blog/"
+        },
+        {
+            "name": "Ivan Lanin",
+            "homepage": "http://ivan.lanin.org"
+        },
+        {
+            "name": "Roman Syroeshko",
+            "homepage": "http://ru.linkedin.com/pub/roman-syroeshko/34/a53/994/"
+        },
+        {
+            "name": "Antoine de Troostembergh"
+        },
+		{
+			"name": "Franz Holzinger",
+			"homepage": "https://ttproducts.de"
+		}
+    ],
+	"license": [
+		"GPL-2.0-or-later"
+	],
+	"require": {
+        "php": "^7.3 || ^8.0",
+		"typo3/cms-core": "^10.4 || ^11.5"
+	},
+    "autoload": {
+        "psr-4": {
+            "PhpOffice\\PhpWord\\": "Vendor/PHPWord/src/PhpWord"
+        }
+    },
+	"replace": {
+		"typo3-ter/base-word": "self.version"
+	},
+	"extra": {
+		"typo3/cms": {
+			"extension-key": "base_word"
+		}
+	}
+}
