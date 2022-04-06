@@ -46,10 +46,12 @@ class HTML extends AbstractWriter implements WriterInterface
      */
     public function __construct(PhpWord $phpWord = null)
     {
+    debug ($phpWord, '__construct $phpWord');
         $this->setPhpWord($phpWord);
 
         $this->parts = array('Head', 'Body');
         foreach ($this->parts as $partName) {
+    debug ($partName, '__construct $partName');
             $partClass = 'PhpOffice\\PhpWord\\Writer\\HTML\\Part\\' . $partName;
             if (class_exists($partClass)) {
                 /** @var \PhpOffice\PhpWord\Writer\HTML\Part\AbstractPart $part Type hint */
@@ -69,6 +71,7 @@ class HTML extends AbstractWriter implements WriterInterface
      */
     public function save($filename = null)
     {
+    debug ($filename, 'save $filename');
         $this->writeFile($this->openFile($filename), $this->getContent());
     }
 
@@ -89,6 +92,7 @@ class HTML extends AbstractWriter implements WriterInterface
         $content .= $this->getWriterPart('Body')->write();
         $content .= '</html>' . PHP_EOL;
 
+        debug ($content, 'HTML::getContent $content');
         return $content;
     }
 

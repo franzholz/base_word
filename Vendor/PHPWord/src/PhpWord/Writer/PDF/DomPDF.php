@@ -52,6 +52,7 @@ class DomPDF extends AbstractRenderer implements WriterInterface
      */
     public function save($filename = null)
     {
+    debug ($filename, 'DomPDF save $filename');
         $fileHandle = parent::prepareForSave($filename);
 
         //  PDF settings
@@ -62,6 +63,14 @@ class DomPDF extends AbstractRenderer implements WriterInterface
         $pdf = $this->createExternalWriterInstance();
         $pdf->setPaper(strtolower($paperSize), $orientation);
         $pdf->loadHtml(str_replace(PHP_EOL, '', $this->getContent()));
+        // FHO Anfang +++
+        $htmlFilename = str_replace('.pdf', '.html', $filename);
+        $htmlFileHandle = fopen($htmlFilename, 'w');
+    debug ($htmlFilename, 'DomPDF save $htmlFilename');
+        debug ($pdf->outputHtml(), 'save $pdf->outputHtml() +++');
+        fwrite($htmlFileHandle, $pdf->outputHtml());
+        fclose($htmlFileHandle);
+        // FHO Ende +++
         $pdf->render();
 
         //  Write to file

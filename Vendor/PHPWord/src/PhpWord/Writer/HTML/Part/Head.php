@@ -69,7 +69,7 @@ class Head extends AbstractPart
         }
         $content .= $this->writeStyles();
         $content .= '</head>' . PHP_EOL;
-
+debug ($content, 'write ENDE $content');
         return $content;
     }
 
@@ -99,13 +99,34 @@ class Head extends AbstractPart
                 'border-top' => '1px solid #CCC',
             ),
             'table' => array(
-                'border'         => '1px solid black',
+                'border' => '1px solid #888899', // Mod Line FHO: grey instead of black
                 'border-spacing' => '0px',
                 'width '         => '100%',
             ),
             'td' => array(
-                'border' => '1px solid black',
+                'border' => '1px solid #888899', // Mod Line FHO: grey instead of black
             ),
+// FHO Mod Start
+            'p' => array (
+                'margin-bottom' => '0px',
+                'margin-top' => '0px'
+            ),
+            '@page' => array(
+                'margin-top' => '120px',
+                'margin-bottom' => '30px',
+            ),
+            '.header' => array(
+                'top' => '-100px',
+                'position' => 'fixed',
+            ),
+            '.footer' => array(
+                'bottom' => '0px',
+                'position' => 'fixed',
+            ),
+            '.pagenum:before' => array(
+                'content' => 'counter(page)',
+            )
+// FHO Mod End
         );
         foreach ($defaultStyles as $selector => $style) {
             $styleWriter = new GenericStyleWriter($style);

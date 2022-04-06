@@ -35,6 +35,7 @@ class TextRun extends Text
 
         $content .= $this->writeOpening();
         $writer = new Container($this->parentWriter, $this->element);
+        $writer = new Container($this->parentWriter, $this->element, $this->withoutP, $this->withoutTags); // Mod Line FHO
         $content .= $writer->write();
         $content .= $this->writeClosing();
 

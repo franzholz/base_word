@@ -57,6 +57,7 @@ class TCPDF extends AbstractRenderer implements WriterInterface
      */
     public function save($filename = null)
     {
+    debug ($filename, 'TCPDF save $filename');
         $fileHandle = parent::prepareForSave($filename);
 
         //  PDF settings

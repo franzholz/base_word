@@ -63,6 +63,7 @@ class MPDF extends AbstractRenderer implements WriterInterface
      */
     public function save($filename = null)
     {
+    debug ($filename, 'MPDF save $filename');
         $fileHandle = parent::prepareForSave($filename);
 
         //  PDF settings

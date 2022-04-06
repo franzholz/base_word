@@ -890,6 +890,7 @@ class TemplateProcessor
     public function save()
     {
         foreach ($this->tempDocumentHeaders as $index => $xml) {
+        debug ($xml, 'save $xml');
             $this->savePartWithRels($this->getHeaderName($index), $xml);
         }
 
@@ -906,7 +907,7 @@ class TemplateProcessor
         if (false === $this->zipClass->close()) {
             throw new Exception('Could not close zip file.'); // @codeCoverageIgnore
         }
-
+debug ($this->tempDocumentFilename, 'save $this->tempDocumentFilename');
         return $this->tempDocumentFilename;
     }
 
@@ -933,6 +934,7 @@ class TemplateProcessor
     public function saveAs($fileName)
     {
         $tempFileName = $this->save();
+        debug ($tempFileName, 'saveAs $tempFileName');
 
         if (file_exists($fileName)) {
             unlink($fileName);
@@ -945,6 +947,7 @@ class TemplateProcessor
          * @see https://github.com/PHPOffice/PHPWord/issues/532
          */
         copy($tempFileName, $fileName);
+        debug ($fileName, 'saveAs $fileName');
         unlink($tempFileName);
     }
 

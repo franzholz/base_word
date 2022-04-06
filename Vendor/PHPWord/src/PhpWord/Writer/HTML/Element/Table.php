@@ -94,7 +94,7 @@ class Table extends AbstractElement
                                 $kRowCells = $rows[$k]->getCells();
                                 if (isset($kRowCells[$j])) {
                                     if ($kRowCells[$j]->getStyle()->getVMerge() === 'continue') {
-                                        $writer = new Container($this->parentWriter, $kRowCells[$j]);
+                                        $writer = new Container($this->parentWriter, $kRowCells[$j], true, true); // Mod Line FHO
                                         $content .= $writer->write();
                                     } else {
                                         break;
@@ -111,6 +111,7 @@ class Table extends AbstractElement
             }
             $content .= '</table>' . PHP_EOL;
         }
+debug ($content, 'Table::write ENDE $content');
 
         return $content;
     }

@@ -238,6 +238,9 @@ abstract class AbstractWriter implements WriterInterface
      */
     protected function cleanupTempFile()
     {
+    debug ($this->originalFilename, 'cleanupTempFile $this->originalFilename');
+    debug ($this->tempFilename, 'cleanupTempFile $this->tempFilename');
+
         if ($this->originalFilename != $this->tempFilename) {
             // @codeCoverageIgnoreStart
             // Can't find any test case. Uncomment when found.
@@ -327,6 +330,7 @@ abstract class AbstractWriter implements WriterInterface
      */
     protected function writeFile($fileHandle, $content)
     {
+    debug ($content, 'writeFile $content');
         fwrite($fileHandle, $content);
         fclose($fileHandle);
         $this->cleanupTempFile();

@@ -350,6 +350,7 @@ class PhpWord
      */
     public function save($filename, $format = 'Word2007', $download = false)
     {
+    debug ($filename, 'save $filename');
         $mime = array(
             'Word2007'  => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
             'ODText'    => 'application/vnd.oasis.opendocument.text',

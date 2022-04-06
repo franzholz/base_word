@@ -70,11 +70,13 @@ class Word2007 extends AbstractReader implements ReaderInterface
                 if (isset($stepItems[$relType])) {
                     $partName = $stepItems[$relType];
                     $xmlFile = $relItem['target'];
+debug ($xmlFile, '$xmlFile');
+debug ($partName, '$partName');
                     $this->readPart($phpWord, $relationships, $partName, $docFile, $xmlFile);
                 }
             }
         }
-
+debug ($phpWord, 'load ENDE $phpWord');
         return $phpWord;
     }
 
@@ -91,10 +93,12 @@ class Word2007 extends AbstractReader implements ReaderInterface
     {
         $partClass = "PhpOffice\\PhpWord\\Reader\\Word2007\\{$partName}";
         if (class_exists($partClass)) {
+debug ($partClass, 'readPart $partClass');
             /** @var \PhpOffice\PhpWord\Reader\Word2007\AbstractPart $part Type hint */
             $part = new $partClass($docFile, $xmlFile);
             $part->setRels($relationships);
             $part->read($phpWord);
+debug ($part, 'readPart $part Ende');
         }
     }
 

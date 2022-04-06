@@ -41,6 +41,7 @@ class Body extends AbstractPart
         $content .= '<body>' . PHP_EOL;
         $sections = $phpWord->getSections();
         foreach ($sections as $section) {
+        debug ($section, 'write $section');
             $writer = new Container($this->getParentWriter(), $section);
             $content .= $writer->write();
         }

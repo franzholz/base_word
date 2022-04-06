@@ -49,6 +49,16 @@ abstract class AbstractElement
      */
     protected $withoutP = false;
 
+// FHO Mod Start
+    /**
+     * Without tags like <span> ... </span>
+     * Use this if the calling html will insert the attributes inside of itself
+     *
+     * @var bool
+     */
+    protected $withoutTags = false;
+// FHO Mod End
+
     /**
      * @var \Laminas\Escaper\Escaper|\PhpOffice\PhpWord\Escaper\AbstractEscaper
      */
@@ -65,12 +75,14 @@ abstract class AbstractElement
      * @param \PhpOffice\PhpWord\Writer\AbstractWriter $parentWriter
      * @param \PhpOffice\PhpWord\Element\AbstractElement $element
      * @param bool $withoutP
+     * @param bool $withoutTags
      */
-    public function __construct(AbstractWriter $parentWriter, Element $element, $withoutP = false)
+    public function __construct(AbstractWriter $parentWriter, Element $element, $withoutP = false, $withoutTags = false) // Mod Line FHO
     {
         $this->parentWriter = $parentWriter;
         $this->element = $element;
         $this->withoutP = $withoutP;
+        $this->withoutTags = $withoutTags; // Mod Line FHO
         $this->escaper = new Escaper();
     }
 

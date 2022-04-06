@@ -17,6 +17,7 @@
 
 namespace PhpOffice\PhpWord\Writer\HTML\Element;
 
+use PhpOffice\PhpWord\Element\AbstractElement as Element; // Mod Line FHO
 use PhpOffice\PhpWord\Element\TrackChange;
 use PhpOffice\PhpWord\Settings;
 use PhpOffice\PhpWord\Style\Font;
@@ -59,6 +60,45 @@ class Text extends AbstractElement
      */
     private $closingTags = '';
 
+// FHO Mod Start
+    /**
+     * Paragraph Style
+     *
+     * @var string
+     */
+    private $paragraphStyle = '';
+
+    /**
+     * Font Style
+     *
+     * @var string
+     */
+    private $fontStyle = '';
+
+	private $pStyleIsObject = false;
+	private $fStyleIsObject = false;
+
+    /**
+     * Create new instance
+     *
+     * @param \PhpOffice\PhpWord\Writer\AbstractWriter $parentWriter
+     * @param \PhpOffice\PhpWord\Element\AbstractElement $element
+     * @param bool $withoutP
+     * @param bool $withoutTags
+     */
+    public function __construct(AbstractWriter $parentWriter, Element $element, $withoutP = false, $withoutTags = false)
+    {
+		parent::__construct($parentWriter, $element, $withoutP, $withoutTags);
+
+		$this->paragraphStyle = '';
+		if (method_exists($this->element, 'getParagraphStyle')) {
+			$this->paragraphStyle = $this->getParagraphStyle();
+		}
+
+		$this->fontStyle = $this->getFontStyle();
+    }
+// FHO Mod End
+
     /**
      * Write text
      *
@@ -68,21 +108,48 @@ class Text extends AbstractElement
     {
         /** @var \PhpOffice\PhpWord\Element\Text $element Type hint */
         $element = $this->element;
-        $this->getFontStyle();
 
+// FHO Mod Start
+        if (!$this->withoutTags) {
+            $stylesArray = $this->getAllStyles();
+            if ($stylesArray['font']) {
+                $style = $stylesArray['font']['style'];
+                $attributes = $stylesArray['font']['type'];
+                $this->openingTags = "<span {$attributes}=\"{$style}\">";
+                $this->closingTags = "</span>";
+            }
+        }
         $content = '';
-        $content .= $this->writeOpening();
+        if (!$this->withoutTags) {
+            $content .= $this->writeOpening();
+        }
+        
+        
+//         $this->getFontStyle();
+
+//         $content = '';
+//         $content .= $this->writeOpening();
         $content .= $this->openingText;
-        $content .= $this->openingTags;
+        if (!$this->withoutTags) {
+            $content .= $this->openingTags;
+        }
+
         if (Settings::isOutputEscapingEnabled()) {
             $content .= $this->escaper->escapeHtml($element->getText());
         } else {
             $content .= $element->getText();
         }
-        $content .= $this->closingTags;
+// TODO: oben einbauen: $text = str_replace(' ', '&nbsp;', $text);
+		if (!$this->withoutTags) {
+            $content .= $this->closingTags;
+        }
         $content .= $this->closingText;
-        $content .= $this->writeClosing();
+		if (!$this->withoutTags) {
+            $content .= $this->writeClosing();
+        }
 
+        debug ($content, 'write $content');
+// FHO Mod End
         return $content;
     }
 
@@ -242,6 +309,8 @@ class Text extends AbstractElement
 
     /**
      * Get font style.
+     *
+     * @return string
      */
     private function getFontStyle()
     {
@@ -261,5 +330,38 @@ class Text extends AbstractElement
             $this->openingTags = "<span {$attribute}=\"{$style}\">";
             $this->closingTags = '</span>';
         }
+        return $style; // Mod Line FHO
     }
+
+
+// FHO Mod Start
+    /**
+     * Get various Paragraph and Font styles.
+     *
+     * @return array
+     */
+    public function getAllStyles()
+    {
+        $stylesArray = array();
+        if ($this->paragraphStyle) {
+            $stylesArray['paragraph'] =
+                array(
+                    'type' => ($this->pStyleIsObject ? 'style' : 'class'),
+                    'style' => $this->paragraphStyle
+                );
+        }
+
+        if ($this->fontStyle) {
+            $stylesArray['font'] =
+                array(
+                    'type' => ($this->fStyleIsObject ? 'style' : 'class'),
+                    'style' => $this->fontStyle
+                );
+        }
+
+        return $stylesArray;
+    }
+// FHO Mod End
 }
+
+
