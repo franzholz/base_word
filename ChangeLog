@@ -1,3 +1,7 @@
+2023-05-09 Franz Holzinger <franz@ttproducts.de>
+    * new version 1.0.0 of PHPOffice PHPWord.
+    * supports TYPO3 12
+
 2022-03-21 Franz Holzinger <franz@ttproducts.de>
     * initial creation based on PHPOffice PHPWord-0.18.3. See the file Vendor/version.txt .
 
