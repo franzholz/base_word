@@ -6,8 +6,8 @@ This extension brings the "PHPWord library" classes "phpoffice/phpword" to TYPO3
 
 ## What is the origin
 
-See https://github.com/PHPOffice/PHPWord/tree/1.3.0
+See https://github.com/PHPOffice/PHPWord/tree/1.4.0
 
 ## Documentation
 
-https://github.com/PHPOffice/PHPWord/tree/1.3.0
+https://github.com/PHPOffice/PHPWord/tree/1.4.0
